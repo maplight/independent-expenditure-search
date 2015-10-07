@@ -1,0 +1,364 @@
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Maplight - California Independent Expenditures Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Maplight's CA Independent Expenditures Search Engine">
+    <link rel="shortcut icon" href="http://maplight.org/sites/all/themes/maptheme/favicon.ico" type="image/x-icon">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="apple-touch-icon" href="/bootstrap/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
+
+    <link href="/stylesheets/style.css" rel="stylesheet">
+
+
+</head>
+
+<body class="radial-center">
+<div class="container-fluid">
+    <div class="row"
+         style="background-color: #fff;border-width: 0px 1px 0px 1px;border-color: #e3e3e3;border-style: solid;">
+        <div class="col-md-2"
+             style="padding-right: 0px;border-width: 0px 1px 0px 0px;border-color: #e3e3e3;border-style: solid;">
+            <nav class="navbar navbar-default ml-nav" role="navigation" style="border-color: #fff">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div style="display: block;margin-left: auto;margin-right: auto">
+                        <a class="navbar-brand" href="http://www.maplight.org">
+                            <img class="img-responsive" src="http://maplight.org/files/MapLight_Logo_NoTagline_sm.jpg"/>
+                        </a>
+                    </div>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <form method="post" class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <h5>Independent <br/>Expenditures from: </h5>
+                            </div>
+
+                        </form>
+                        <li>
+                            <div class="panel-body">
+                                <div class="form">
+                                    <label class="radio">
+                                        <input class="defaultSelect" value="allExpenders" name="expendername"
+                                               type="radio" checked>All committees and <br/>major donors
+                                    </label>
+                                    <label class="radio">
+                                        <input id="specificExpendersRadio" value="specificExpenders" name="expendername"
+                                               type="radio">
+                                        <input type="text" id="specificExpenderText" style=" width: 100%;"/>
+                                    </label>
+                                </div>
+
+                                <button type="button" class="btn btn-default question pull-right"
+                                        data-toggle="tooltip" data-placement="right"
+                                        title="Search for independent expenditures from all committees, companies, and organizations making them, or search for independent expenditures from a particular entity in the box below.">
+                                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                </button>
+
+                            </div>
+                        </li>
+                        <li>
+                            <hr/>
+                        </li>
+                        <li>
+                            <div class="panel-body">
+                                <!-- S, U, O -->
+                                <!--<div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="soDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Supporting or Opposing?
+                                        <span class="caret"></span>
+                                    </button>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Both Supporting and Opposing</a></li>
+                                        <li><a href="#">Supporting</a></li>
+                                        <li><a href="#">Opposing</a></li>
+                                    </ul>
+                                </div>-->
+                                <select class="defaultSelect" id="SOU" style="width: 75%;">
+                                    <option value="">Any stance...</option>
+                                    <option value="S">Supporting</option>
+                                    <option value="O">Opposing</option>
+                                </select>
+                                <button type="button" class="btn btn-default question pull-right"
+                                        data-toggle="tooltip" data-placement="right"
+                                        title="Adjust the stance to search for independent expenditures made only to support, only to oppose, or that take both positions on a candidate or ballot measure.">
+                                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </li>
+                        <li>
+                            <hr/>
+                        </li>
+                        <li>
+                            <div id="candidate-form-panel" class="panel-body">
+                                <div class="form">
+                                    <label class="control-label">
+                                        Candidates
+                                    </label>
+                                    <label class="radio">
+                                        <input id="candidate-form-check" class="defaultSelect" value="1"
+                                               name="candidates" type="radio" checked>All
+                                        candidates
+                                    </label>
+                                    <label class="radio">
+                                        <input id="specificCandidatesRadio" value="specificCandidates" name="candidates"
+                                               type="radio">
+                                        <input id="specificCandidatesText" type="text" style="width: 100%;"
+                                               placeholder="Just these candidates"/>
+                                    </label>
+                                    <label class="radio">
+                                        <input value="districtOrOffice" id="districtOrOffice" name="candidates"
+                                               type="radio">All candidates for:
+                                        <div>
+                                            <select class="defaultSelect" id="office"
+                                                    style="margin-right: 10px; width: 75%">
+                                                <option value="">Select an office...</option>
+                                            </select>
+                                            <br/>
+
+
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <button type="button" class="btn btn-default question pull-right"
+                                        data-toggle="tooltip" data-placement="right"
+                                        title="Search for independent expenditures affecting all candidates, or type the name of a particular candidate. Select an office to search for all independent expenditures affecting candidates for that office.">
+                                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                </button>
+
+                            </div>
+                        </li>
+                        <li>
+                            <hr/>
+                        </li>
+                        <li>
+                            <div id="measure-form-panel" class="panel-body">
+                                <div class="form">
+                                    <label class="control-label">
+                                        Ballot Measures
+                                    </label>
+                                    <label class="radio">
+                                        <input id="measure-form-check" class="defaultSelect"
+                                               value="specificMeasureRadio" name="measures"
+                                               type="radio" checked>All measures
+                                    </label>
+                                    <label class="radio">
+                                        <input id="specificMeasuresTextRadio" value="specificMeasure" name="measures"
+                                               type="radio">
+                                        <select class="defaultSelect" id="measure" width="30px"
+                                                style="margin-right: 10px; width: 75%">
+                                        <option value="">Select a measure...</option>
+
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <button type="button" class="btn btn-default question pull-right"
+                                        data-toggle="tooltip" data-placement="right"
+                                        title="Search for independent expenditures affecting all ballot measures, or select a particular ballot measure from the dropdown menu.">
+                                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                </button>
+
+                            </div>
+                        </li>
+                        <li>
+                            <hr/>
+                        </li>
+                        <li>
+                            <div class="panel-body">
+                                <div class="form">
+                                    <label class="control-label">
+                                        Date
+                                    </label>
+                                    <label class="radio">
+                                        <input class="defaultSelect" value="1" name="dates" type="radio" checked>All
+                                        dates and election cycles
+                                    </label>
+                                    <label class="radio">
+                                        <input id="dateRangeRadio" value="dateRange" name="dates" type="radio">Date
+                                        range
+                                        <div style="margin-left: -20px;margin-top: 10px;">
+                                            <input class="specificDateRange" id="dateStartText" placeholder="yyyy-mm-dd"
+                                                   style="width:42%"/>
+                                            to
+                                            <input class="specificDateRange" id="dateEndText" placeholder="yyyy-mm-dd"
+                                                   style="width:42%"/>
+                                        </div>
+                                    </label>
+                                    <label class="radio">
+                                        <input id="electionCyclesRadio" value="electionCycles" name="dates"
+                                               type="radio">Election cycle(s)
+                                        <div style="margin-left: -20px;margin-top: 10px;" id="electionCycleTable">
+                                            <div id="electionList" class="row">
+
+                                                <label style="">
+                                                    <input class="electionCycle" type="checkbox" value="2015">
+                                                    2015-2016
+                                                </label>
+                                                <br>
+                                                <label>
+                                                    <input class="electionCycle" type="checkbox" value="2013">
+                                                    2013-2014
+                                                </label>
+                                                <br>
+                                                <label>
+                                                    <input class="electionCycle" type="checkbox" value="2011">
+                                                    2011-2012
+                                                </label>
+                                                <br>
+                                                <label>
+                                                    <input class="electionCycle" type="checkbox" value="2009">
+                                                    2009-2010
+                                                </label>
+                                                <br>
+
+                                                <label>
+                                                    <input class="electionCycle" type="checkbox" value="2007">
+                                                    2007-2008
+                                                </label>
+                                                <br>
+                                                <label>
+                                                    <input class="electionCycle" type="checkbox" value="2005">
+                                                    2005-2006
+                                                </label>
+                                                <br>
+                                                <label>
+                                                    <input class="electionCycle" type="checkbox" value="2003">
+                                                    2003-2004
+                                                </label>
+                                                <br>
+                                                <label>
+                                                    <input class="electionCycle" type="checkbox" value="2001">
+                                                    2001-2002
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <button type="button" class="btn btn-default question pull-right"
+                                        data-toggle="tooltip" data-placement="right"
+                                        title="Search for independent expenditures made at any time since 2001, or narrow your search using a specific date range or two-year election cycle.">
+                                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                </button>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="pull-right" style="padding: 15px;">
+                                <a id="clearForm" class="btn btn-default" role="button">Clear</a>
+                                <a class="btn btn-primary" role="button" id="btnSearch">Search</a>
+                            </div>
+                        </li>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+        </div>
+        <div class="col-md-10">
+            <div id="jumbotron" class="jumbotron" class="show">
+                <div class="container" style="margin-top: 50%;margin-bottom: 50%;">
+                    <h2>Welcome to MapLight's California Independent Expenditures Search Engine</h2>
+                    <h4>Use the form on the left to query our data. To learn more about this tool, <a href=" http://maplight.org/california/guide/data/independent-expenditures" target="_blank">click here.</a></h4>
+                </div>
+            </div>
+            <div id="results" class="hidden">
+                <h2>
+                    California Independent Expenditures
+                </h2>
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <!--<h4>-->
+                        <!--Search Results-->
+                        <!--</h4>-->
+
+                        <!--<div id="total"></div>-->
+                        <!--<ul>-->
+                        <!--<li id="candidate-total"></li>-->
+                        <!--<li id="measure-total"></li>-->
+                        <!--</ul>-->
+                        <div id="amount-display" class="panel panel-default" style="margin-bottom: 20px;">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Search Results</h3>
+                            </div>
+                            <div class="panel-body">
+                                <dl class="dl-horizontal">
+                                    <dt id="total"></dt>
+                                    <dd id="total-text"></dd>
+                                </dl>
+                                <div id="itemized-list">
+                                    <div id="amount-identifier"></div>
+                                    <dl class="dl-horizontal">
+                                        <dt id="first-row-value"></dt>
+                                        <dd id="first-row-text"></dd>
+                                        <dt id="second-row-value"></dt>
+                                        <dd id="second-row-text"></dd>
+                                    </dl>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <a id="csvLink" href="#">
+                            <button id="csvButton" class="btn btn-lg btn-primary" type="submit">
+                                <span class="  glyphicon glyphicon-download-alt" aria-hidden="true"></span> CSV
+                            </button>
+                        </a>
+                    </div>
+
+
+                </div>
+                <hr/>
+                <div>
+                    <h4>
+                        Detail
+                    </h4>
+                </div>
+
+                <div>
+                    <!-- JQuery DataTables plugin: https://datatables.net/examples/styling/bootstrap.html -->
+                    <div id="resultsTable"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- scripts -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script src="/js/caie.js"></script>
+
+</body>
+</html>

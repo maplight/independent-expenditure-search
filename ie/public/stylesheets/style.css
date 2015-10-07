@@ -1,0 +1,126 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.full-height {
+	height: 100%;
+}
+
+.ml-nav {
+	background-color: #fff;
+	border-color: #e7e7e7;
+}
+
+.question {
+	border: none;
+	position: absolute;
+	right: 0px;
+	top: 15px;
+}
+
+.question:hover {
+	border-color: transparent;
+	background-color: transparent;
+}
+
+hr {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+@media (min-width: 768px) {
+    .navbar-collapse {
+        height: auto;
+        border-top: 0;
+        box-shadow: none;
+        max-height: none;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .navbar-collapse.collapse {
+        display: block !important;
+        width: auto !important;
+        padding-bottom: 0;
+        overflow: visible !important;
+    }
+
+    .navbar-collapse.in {
+        overflow-x: visible;
+    }
+
+    .navbar {
+        max-width: 300px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .navbar-nav,
+    .navbar-nav > li,
+    .navbar-left,
+    .navbar-right,
+    .navbar-header {
+        float: none !important;
+    }
+
+    .navbar-right .dropdown-menu {
+        left: 0;
+        right: auto;
+    }
+
+    .navbar-collapse .navbar-nav.navbar-right:last-child {
+        margin-right: 0;
+    }
+}
+
+.radial-center {
+    /* fallback */
+    background-color: #FFF;
+    background-image: url(images/radial_bg.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    /* Safari 4-5, Chrome 1-9 */
+    /* Can't specify a percentage size? Laaaaaame. */
+    background: -webkit-gradient(radial, center center, 0, center center, 460, from(#FFD44D), to(#FFF));
+
+    /* Safari 5.1+, Chrome 10+ */
+    background: -webkit-radial-gradient(circle, #FFD44D, #FFF);
+
+    /* Firefox 3.6+ */
+    background: -moz-radial-gradient(circle, #FFD44D, #FFF);
+
+    /* IE 10 */
+    background: -ms-radial-gradient(circle, #FFD44D, #FFF);
+
+    /* Opera couldn't do radial gradients, then at some point they started supporting the -webkit- syntax, how it kinda does but it's kinda broken (doesn't do sizing) */
+}
+
+TD {
+    font-size: 11px
+}
+
+/*
+        TH {
+            white-space: nowrap;
+        }
+        */
+
+#csvButton {
+    display: block;
+    margin: 0 auto;
+
+}
+
+#total {
+    font-weight: bold;
+}
+
+dt, dd {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#electionList{
+    padding-left: 25px;
+}
